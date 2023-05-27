@@ -1,0 +1,174 @@
+:root{
+    --color-principal: #3A3B40;
+    --color-amarillo: #EAC956;
+    --color-amarillo-disabled: rgba(234, 201, 86, 0.5);
+    --color-rojo: rgba(255,90,90,1);
+    --color-rojo-disabled: rgba(255,90,90,0.5);
+}
+body{
+    background-color: var(--color-principal);
+    color: white;
+    font-family: Arial;
+} 
+/* Estilos para los botones amarillos */
+.botonAmarillo{
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--color-amarillo);
+    cursor: pointer;
+    border: 0px;
+}
+.botonAmarillo:disabled{
+    background-color: var(--color-amarillo-disabled);
+    cursor: default;
+    color: black;
+    border: 0px;
+}
+.botonRojo{
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--color-rojo);
+    cursor: pointer;
+    border: 0px;
+}
+.botonRojo:disabled{
+    background-color: var(--color-rojo-disabled);
+    cursor: default;
+    color: black;
+    border: 0px;
+}
+.botones {
+    text-align: center;
+}
+.botones .botonAmarillo{
+    width: 7vw;
+    height: 2.5vh;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+.botones .botonRojo{
+    width: 7vw;
+    height: 2.5vh;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+}
+.barraBusqueda{
+    margin-top: 1%;
+    text-align: center;
+}
+.barraBusqueda .botonAmarillo{
+    width: 4vw;
+    height: 2.7vh;
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+}
+.inputTexto{
+    background-color: var(--color-principal);
+    border: 1px solid;
+    border-color: white;
+    border-radius: 5px;
+}
+.barraBusqueda .inputTexto{
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+    width: 10vw;
+}
+.barraBusqueda label{
+    margin-left: 0.25%;
+    margin-right: 0.25%;
+}
+
+
+@media (min-width: 768px) {
+.cardsItems{
+        margin-top: 2%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+        grid-gap: 10px;
+}
+.cardItem {  display: grid;
+    margin-left: 2%;
+    margin-right: 2%;
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    grid-template-columns: 0.25vw 4vw 5vw 5vw 5vw;
+    grid-template-rows: 0.1em 3em 3em 3em 1em 3em 3em 3em 3em 3em 3em;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . . . ."
+      ". Imagen Imagen Nombre Nombre"
+      ". Imagen Imagen NombreComun NombreComun"
+      ". Imagen Imagen Precio Precio"
+      ". Imagen Imagen . ."
+      ". Descripcion Descripcion Descripcion Descripcion"
+      ". ProveedorLabel ProveedorLabel Proveedor Proveedor"
+      ". AlmacenLabel AlmacenLabel Almacen Almacen"
+      ". ContabilidadLabel ContabilidadLabel Contabilidad Contabilidad"
+      ". ReferenciaLabel ReferenciaLabel Referencia Referencia"
+      ". . BotonConsultar BotonConsultar .";
+  }
+}
+@media (max-width: 767px) {
+    .cardItem {  display: grid;
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        grid-template-columns: 1% 24% 25% 25% 25%;
+        grid-template-rows: 0.1em 4em 4em 4em 1em 4em 4em 4em 4em 4em 4em;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          ". . . . ."
+          ". Imagen Imagen Nombre Nombre"
+          ". Imagen Imagen NombreComun NombreComun"
+          ". Imagen Imagen Precio Precio"
+          ". Imagen Imagen . ."
+          ". Descripcion Descripcion Descripcion Descripcion"
+          ". ProveedorLabel ProveedorLabel Proveedor Proveedor"
+          ". AlmacenLabel AlmacenLabel Almacen Almacen"
+          ". ContabilidadLabel ContabilidadLabel Contabilidad Contabilidad"
+          ". ReferenciaLabel ReferenciaLabel Referencia Referencia"
+          ". . BotonConsultar BotonConsultar .";
+      }
+}
+  .Imagen { grid-area: Imagen;}
+  .Imagen img{
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .Nombre { grid-area: Nombre;}
+  
+  .NombreComun { grid-area: NombreComun;}
+  
+  .Precio { grid-area: Precio;}
+  
+  .Descripcion { grid-area: Descripcion;}
+  
+  .ProveedorLabel { grid-area: ProveedorLabel;}
+  
+  .Proveedor { grid-area: Proveedor; text-align: right;}
+  
+  .AlmacenLabel { grid-area: AlmacenLabel;}
+  
+  .Almacen { grid-area: Almacen; text-align: right;}
+  
+  .ContabilidadLabel { grid-area: ContabilidadLabel;}
+  
+  .Contabilidad { grid-area: Contabilidad; text-align: right;}
+  
+  .ReferenciaLabel { grid-area: ReferenciaLabel;}
+  
+  .Referencia { grid-area: Referencia; text-align: right;}
+  
+  .BotonConsultar { grid-area: BotonConsultar;}
+  .BotonConsultar .botonAmarillo{
+    width: 100%;
+    height: 100%;
+  }
+.cardItem:hover{
+    border: 2px solid black;
+}  
+        
+    
+    
+    
