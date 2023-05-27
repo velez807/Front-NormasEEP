@@ -30,6 +30,9 @@ function getItems() {
                         let consultarButton = document.createElement('button');
                         consultarButton.className = 'botonAmarillo';
                         consultarButton.textContent = 'Consultar conjuntos';
+                        consultarButton.onclick=function(){
+                            ConsultarConjuntosItem(datosItem.ID_Item,datosItem.Nombre_Comun);
+                        }
                         botonConsultarDiv.appendChild(consultarButton);
                         cardItemDiv.appendChild(imagenDiv);
                         cardItemDiv.appendChild(nombreDiv);
@@ -65,4 +68,60 @@ function crearImagen(imagenTexto){
     let imagen = new Image();
     imagen.src = 'data:image/jpeg;base64,' + imagenTexto;
     return imagen;
+}
+function buscarItems() {
+    const searchInput = document.getElementById('nombreItemBuscado').value.toLowerCase();
+    const cardItems = document.getElementsByClassName('cardItem');
+  
+    for (var i = 0; i < cardItems.length; i++) {
+      let nombreDiv = cardItems[i].getElementsByClassName('Nombre')[0];
+      let nombre = nombreDiv.textContent.toLowerCase();
+  
+      if (nombre.includes(searchInput)) {
+        cardItems[i].style.display = 'grid'; // Mostrar el cardItem si el nombre coincide
+      } else {
+        cardItems[i].style.display = 'none'; // Ocultar el cardItem si el nombre no coincide
+      }
+    }
+}
+function  ConsultarConjuntosItem(id_item,nombre_item){
+    const modalConjuntosItems=document.getElementById('modalConjuntosItems');
+    modalConjuntosItems.style.display='block';
+    const botonCerrarModal=modalConjuntosItems.getElementsByClassName('botonRojo')[0];
+    const tablaModal=document.getElementById('tablaModalConjuntosItems');
+    const parrafoTitulo=document.getElementById('tituloConjuntosItems');
+    const parrafoTotal=document.getElementById('totalConjuntosItems');
+    parrafoTitulo.innerText='Conjuntos que contienen '+nombre_item;
+    parrafoTotal.innerText='Total: $0'
+    while (tablaModal.firstChild) {
+        tablaModal.removeChild(tablaModal.firstChild);
+    }
+    botonCerrarModal.onclick=function(){
+        modalConjuntosItems.style.display='none';
+    }
+    fetch('http://127.0.0.1:5000/conjuntosItem/'+id_item)
+        .then(response => response.json())
+        .then(data => {
+            let totalLocal=0;
+            for (let i = 0; i < data.length; i++) {
+                let nuevoTr=document.createElement('tr');
+                let idTd=document.createElement('td');
+                let nombreTd=document.createElement('td');
+                nombreTd.innerText=data[i][1];
+                idTd.innerText=data[i][0];
+                nuevoTr.appendChild(idTd);
+                nuevoTr.appendChild(nombreTd);
+                tablaModal.appendChild(nuevoTr);
+                fetch('http://localhost:5000/itemsConjunto/'+data[i][0])
+                .then(response => response.json())
+                .then(dataC => {
+                    for(let j = 0; j < dataC.length; j++){
+                        if (dataC[j].ID_Item==id_item){
+                            totalLocal=totalLocal+(dataC[j].Precio*dataC[j].Cantidad);
+                        }
+                    }
+                parrafoTotal.innerText='Total: $'+totalLocal;    
+                });
+            }
+        });
 }

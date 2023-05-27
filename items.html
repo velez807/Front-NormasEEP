@@ -17,12 +17,20 @@
             <button class="botonRojo" disabled>Eliminar item</button>
         </div>
         <div class="barraBusqueda">
-            <label for="nombreItem">Nombre</label>
-            <input type="text" class="inputTexto" id="nombreItem">
-            <button class="botonAmarillo">Buscar</button>
+            <label for="nombreItemBuscado">Nombre</label>
+            <input type="text" class="inputTexto" id="nombreItemBuscado">
+            <button class="botonAmarillo" onclick="buscarItems()">Buscar</button>
         </div>
         <div class="cardsItems" id="cardsItems"></div>
-    <script src="script.js"></script>    
+        <div class="modal itemsConjunto" id="modalConjuntosItems">
+            <button class="botonRojo">X</button>
+            <p id="tituloConjuntosItems"></p>
+            <table id="tablaModalConjuntosItems"></table>
+            <br>
+            <p id="totalConjuntosItems"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
     <script>getItems()</script>
 </body>
 
