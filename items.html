@@ -12,7 +12,7 @@
 <body>
     <div style="display: block;" id="items">
         <div class="botones">
-            <button class="botonAmarillo">Crear item</button>
+            <button class="botonAmarillo" onclick="CrearItem()">Crear item</button>
             <button class="botonAmarillo" disabled>Actualizar item</button>
             <button class="botonRojo" disabled>Eliminar item</button>
         </div>
@@ -28,6 +28,29 @@
             <table id="tablaModalConjuntosItems"></table>
             <br>
             <p id="totalConjuntosItems"></p>
+        </div>
+        <div class="modal itemsCeate" id="modalCreateItem">
+            <button class="botonRojo">X</button>
+            <div class="formCrearItem">
+                <p>Crear ítem</p>
+                <input type="text" class="inputTexto" name="" id="nombreCreateItem" placeholder="Nombre">
+                <textarea name="" class="inputTexto" id="descCreateItem" cols="30" rows="10"
+                    placeholder="Descripción"></textarea>
+                <input type="text" name="" id="provCreateItem" class="inputTexto" placeholder="Proveedor">
+                <input type="text" name="" id="refCreateItem" class="inputTexto" placeholder="Referencia">
+                <input type="number" min="0" name="" id="precioCreateItem" class="inputTexto" placeholder="Precio">
+                <input type="text" name="" id="almacenCreateItem" class="inputTexto"
+                    placeholder="Cod almacén">
+                <input type="text" name="" id="contaCreateItem" class="inputTexto"
+                    placeholder="Cod contabilidad">
+                <input type="text" name="" id="nombreComunCreateItem" class="inputTexto" placeholder="Nombre común">
+                <div class="custom-file-input">
+                    <label for="file-input" id="file-label">Seleccionar archivo</label>
+                    <input type="file" id="file-input" accept=".jpg,.png,.jpeg">
+                </div>
+                <br>
+                <button class="botonAmarillo" id="botonCrearItem">Crear</button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
