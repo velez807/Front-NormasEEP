@@ -13,8 +13,8 @@
     <div style="display: block;" id="items">
         <div class="botones">
             <button class="botonAmarillo" onclick="CrearItem()">Crear item</button>
-            <button class="botonAmarillo" disabled>Actualizar item</button>
-            <button class="botonRojo" disabled>Eliminar item</button>
+            <button class="botonAmarillo" id="ActualizarItemBtn" disabled>Actualizar item</button>
+            <button class="botonRojo" id="EliminarItemBtn" disabled>Eliminar item</button>
         </div>
         <div class="barraBusqueda">
             <label for="nombreItemBuscado">Nombre</label>
@@ -51,6 +51,13 @@
                 <br>
                 <button class="botonAmarillo" id="botonCrearItem">Crear</button>
             </div>
+        </div>
+        <div class="modalConfirmacion" id="modalConfirmarItem">
+            <p>¿Está seguro que quiere
+                eliminar el ítem?</p>
+            <button class="botonRojo" id="ConfirmarEliminarItem">Si</button>
+            <button class="botonAmarillo" id="cerrarModalConfirmarItem">No</button>
+            <p>Esta acción es irreversible</p>
         </div>
     </div>
     <script src="script.js"></script>

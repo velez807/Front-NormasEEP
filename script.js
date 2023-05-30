@@ -1,3 +1,7 @@
+const botonEliminarItem = document.getElementById('EliminarItemBtn');
+botonEliminarItem.disabled = true;
+const botonActualizarItem = document.getElementById('ActualizarItemBtn');
+botonActualizarItem.disabled = true;
 function getItems() {
     const divCardsItems = document.getElementById('cardsItems');
     fetch('http://127.0.0.1:5000/items')
@@ -48,6 +52,10 @@ function getItems() {
                         cardItemDiv.appendChild(referenciaLabelDiv);
                         cardItemDiv.appendChild(referenciaDiv);
                         cardItemDiv.appendChild(botonConsultarDiv);
+                        cardItemDiv.id = datosItem.ID_Item;
+                        cardItemDiv.onclick = function () {
+                            seleccionarItem(datosItem);
+                        }
                         divCardsItems.appendChild(cardItemDiv);
                     });
             }
@@ -55,6 +63,37 @@ function getItems() {
         .catch(error => {
             // Manejar errores
         });
+}
+function seleccionarItem(item) {
+    const cardItems = document.getElementsByClassName('cardItem');
+    botonActualizarItem.disabled = false;
+    botonEliminarItem.disabled = false;
+    botonActualizarItem.onclick = function () {
+        UpdateItem(item);
+    }
+    botonEliminarItem.disabled = false;
+    botonEliminarItem.onclick = function () {
+        DeleteItem(item.ID_Item);
+    }
+    for (var i = 0; i < cardItems.length; i++) {
+        if (cardItems[i].id == item.ID_Item) {
+            let tarjeta = cardItems[i]; //Se que esto parece redondante, pero it just works
+            cardItems[i].classList.add('seleccionado');
+            cardItems[i].onclick = function () {
+                desSeleccionarItem(tarjeta, item);
+            }
+        } else {
+            cardItems[i].classList.remove('seleccionado');
+        }
+    }
+}
+function desSeleccionarItem(cardItem, datosItem) {
+    botonActualizarItem.disabled = true;
+    botonEliminarItem.disabled = true;
+    cardItem.classList.remove('seleccionado');
+    cardItem.onclick = function () {
+        seleccionarItem(datosItem);
+    }
 }
 //Función para crear un div con texto directamente
 function createDivWithText(className, text) {
@@ -78,9 +117,9 @@ function buscarItems() {
         let nombre = nombreDiv.textContent.toLowerCase();
 
         if (nombre.includes(searchInput)) {
-            cardItems[i].style.display = 'grid'; // Mostrar el cardItem si el nombre coincide
+            cardItems[i].style.display = 'grid';
         } else {
-            cardItems[i].style.display = 'none'; // Ocultar el cardItem si el nombre no coincide
+            cardItems[i].style.display = 'none';
         }
     }
 }
@@ -139,6 +178,7 @@ function CrearItem() {
         modalCreateItem.style.display = 'none';
     }
     const botonCrearItem = document.getElementById('botonCrearItem');
+    botonCrearItem.innerText = 'Crear';
     botonCrearItem.onclick = function () {
         modalCreateItem.style.display = 'none';
         let archivo = document.getElementById('file-input').files[0];
@@ -161,15 +201,69 @@ function CrearItem() {
                 json_item.Codigo_Almacen = almacen;
                 json_item.Codigo_Contabilidad = contabilidad;
                 json_item.Nombre_Comun = nombreComun;
-                console.log(base64Data);
-                json_item.Foto=base64Data;
+                json_item.Foto = base64Data;
                 solicitudPost('http://127.0.0.1:5000/item/', json_item);
-                location.reload();
             })
             .catch(function (error) {
                 alert(error);
             });
     }
+}
+function UpdateItem(item) {
+    const modalCreateItem = document.getElementById('modalCreateItem');
+    modalCreateItem.style.display = 'block';
+    const nombreInput = document.getElementById('nombreCreateItem');
+    const descripcionInput = document.getElementById('descCreateItem')
+    const proveedorInput = document.getElementById('provCreateItem')
+    const referenciaInput = document.getElementById('refCreateItem')
+    const precioInput = document.getElementById('precioCreateItem')
+    const almacenInput = document.getElementById('almacenCreateItem')
+    const contabilidadInput = document.getElementById('contaCreateItem')
+    const nombreComunInput = document.getElementById('nombreComunCreateItem');
+    const botonCerrarModal = modalCreateItem.getElementsByClassName('botonRojo')[0];
+    botonCerrarModal.onclick = function () {
+        modalCreateItem.style.display = 'none';
+    }
+    nombreInput.value = item.Nombre;
+    descripcionInput.value = item.Descripcion;
+    proveedorInput.value = item.Proveedor;
+    referenciaInput.value = item.Referencia;
+    precioInput.value = item.Precio;
+    almacenInput.value = item.Codigo_Almacen;
+    contabilidadInput.value = item.Codigo_Contabilidad;
+    nombreComunInput.value = item.Nombre_Comun;
+    const botonCrearItem = document.getElementById('botonCrearItem');
+    var foto = item.Foto;
+    botonCrearItem.innerText = 'Actualizar';
+    const seleccionarArchivo = document.getElementById('file-input');
+    seleccionarArchivo.addEventListener('change', function (event) {
+        const files = event.target.files;
+        convertirImagen(files[0])
+        .then(function (base64Data) {foto=base64Data});
+    });
+    botonCrearItem.addEventListener('click',function(){
+        let json_item={}
+        json_item.ID_Item=item.ID_Item;
+        json_item.Nombre = nombreInput.value;
+        json_item.Descripcion = descripcionInput.value;
+        json_item.Proveedor = proveedorInput.value;
+        json_item.Referencia = referenciaInput.value;
+        json_item.Precio = precioInput.value;
+        json_item.Codigo_Almacen = almacenInput.value;
+        json_item.Codigo_Contabilidad = contabilidadInput.value;
+        json_item.Nombre_Comun = nombreComunInput.value;
+        json_item.Foto = foto;
+        solicitudPut('http://127.0.0.1:5000/item/', json_item);
+    });
+}
+function DeleteItem(id){
+    const modal= document.getElementById('modalConfirmarItem');
+    modal.style.display = 'block';
+    const botonCerrar=document.getElementById('cerrarModalConfirmarItem');
+    botonCerrar.addEventListener('click',function(){modal.style.display = 'none';});
+    const botonConfirmar=document.getElementById('ConfirmarEliminarItem');
+    let url='http://127.0.0.1:5000/item/'+id;
+    botonConfirmar.addEventListener('click',function(){solicitudDelete(url)});
 }
 //Esta devuelve la imagen en base64
 function convertirImagen(archivo) {
@@ -192,20 +286,55 @@ function convertirImagen(archivo) {
 //Esto realiza una solicitud post, para el create, recibe un json
 function solicitudPost(url, data) {
     fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify(data)
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data)
     })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log(responseData);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+            location.reload(); 
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });   
 }
-  
-
+//Lo mismo de arriba pero con put
+function solicitudPut(url, data) {
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+            location.reload(); 
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });   
+}
+//¿Que será? ¿Que será? ¡Otra solicitud igual que las anteriores!
+function solicitudDelete(url){
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    })
+        .then(response => response.json())
+        .then(responseData => {
+            console.log(responseData);
+            location.reload(); 
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });   
+}
