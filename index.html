@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Normas EEP</title>
 </head>
 
 <body>
-    <div style="display: block;" id="items">
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection()" class="active" id="nav-secciones">Secciones</a></li>
+            <li><a href="#" onclick="showConjuntos()" class="inactive" id="nav-conjuntos">Conjuntos</a></li>
+            <li><a href="#" onclick="showItems()" class="inactive" id="nav-items">Items</a></li>
+        </ul>
+    </nav>
+
+    <div id="secciones">
+        <div class="botones">
+            <button class="botonAmarillo">Adicionar Sección</button>
+        </div>
+        <div class="busqueda-seccion">
+            Conjuntos de sección
+            <select>
+                <option value="">Selecciona un número</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <button class="botonAmarillo">Ver</button>
+        </div>
+        <div class="cards-secciones" id="cards-secciones">
+            <div class="card-seccion">
+                <img src="./Placeholder.jpg" alt="">
+                <div class="nombre">
+                    Nombre
+                </div>
+                <div class="descripcion">
+                    Descripción
+                </div>
+                <div class="seccion">
+                    n-seccion
+                </div>
+            </div>
+
+            <div class="card-seccion">
+                <img src="./Placeholder.jpg" alt="">
+                <div class="nombre">
+                    Nombre
+                </div>
+                <div class="descripcion">
+                    Descripción
+                </div>
+                <div class="seccion">
+                    n-seccion
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <div id="conjuntos" style="display: none;">
+        <h2>Conjuntos</h2>
+        <p>Contenido de los conjuntos.</p>
+    </div>
+
+    <div id="items" style="display: none;">
         <div class="botones">
             <button class="botonAmarillo" onclick="CrearItem()">Crear item</button>
             <button class="botonAmarillo" id="ActualizarItemBtn" disabled>Actualizar item</button>
@@ -39,10 +104,8 @@
                 <input type="text" name="" id="provCreateItem" class="inputTexto" placeholder="Proveedor">
                 <input type="text" name="" id="refCreateItem" class="inputTexto" placeholder="Referencia">
                 <input type="number" min="0" name="" id="precioCreateItem" class="inputTexto" placeholder="Precio">
-                <input type="text" name="" id="almacenCreateItem" class="inputTexto"
-                    placeholder="Cod almacén">
-                <input type="text" name="" id="contaCreateItem" class="inputTexto"
-                    placeholder="Cod contabilidad">
+                <input type="text" name="" id="almacenCreateItem" class="inputTexto" placeholder="Cod almacén">
+                <input type="text" name="" id="contaCreateItem" class="inputTexto" placeholder="Cod contabilidad">
                 <input type="text" name="" id="nombreComunCreateItem" class="inputTexto" placeholder="Nombre común">
                 <div class="custom-file-input">
                     <label for="file-input" id="file-label">Seleccionar archivo</label>
@@ -60,6 +123,8 @@
             <p>Esta acción es irreversible</p>
         </div>
     </div>
+
+    <script src="./navbar.js"></script>
     <script src="script.js"></script>
     <script>getItems()</script>
 </body>
