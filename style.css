@@ -157,8 +157,9 @@ a.active:before {
 
 .Imagen img {
     height: 100%;
-    width: 100%;
-    border-radius: 5px;
+    width: 90%;
+    margin-top: 0;
+    border-radius: 5%;
 }
 
 .Nombre {
@@ -322,6 +323,7 @@ a.active:before {
 
 tr {
     border: 1px solid white;
+    cursor: pointer;
 }
 
 td,
@@ -508,5 +510,11 @@ th {
     .modal .botonRojo {
         width: 8vw;
         height: 3vh;
+    }
+    .modal,
+    .modalConfirmacion {
+        left: 5%;
+        width: 90vw;
+        top: 10%;
     }
 }

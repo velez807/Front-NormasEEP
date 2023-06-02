@@ -142,6 +142,7 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
         .then(response => response.json())
         .then(data => {
             let totalLocal = 0;
+            let flag=false;
             for (let i = 0; i < data.length; i++) {
                 let nuevoTr = document.createElement('tr');
                 let idTd = document.createElement('td');
@@ -150,6 +151,9 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
                 idTd.innerText = data[i][0];
                 nuevoTr.appendChild(idTd);
                 nuevoTr.appendChild(nombreTd);
+                nuevoTr.onclick=function(){
+                    parrafoTotal.innerText="Total: $"+nuevoTr.id;
+                }
                 tablaModal.appendChild(nuevoTr);
                 fetch('http://localhost:5000/itemsConjunto/' + data[i][0])
                     .then(response => response.json())
@@ -157,9 +161,13 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
                         for (let j = 0; j < dataC.length; j++) {
                             if (dataC[j].ID_Item == id_item) {
                                 totalLocal = totalLocal + (dataC[j].Precio * dataC[j].Cantidad);
+                                nuevoTr.id=(dataC[j].Precio * dataC[j].Cantidad);
+                                if (flag==false){
+                                    parrafoTotal.innerText="Total: $"+nuevoTr.id;
+                                    flag=true;
+                                }
                             }
                         }
-                        parrafoTotal.innerText = 'Total: $' + totalLocal;
                     });
             }
         });
