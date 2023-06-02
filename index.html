@@ -71,8 +71,53 @@
     </div>
 
     <div id="conjuntos" style="display: none;">
-        <h2>Conjuntos</h2>
-        <p>Contenido de los conjuntos.</p>
+        <div class="botones">
+            <button class="botonAmarillo" onclick="CrearItem()">Crear Conjunto</button>
+            <button class="botonAmarillo" id="ActualizarItemBtn" disabled>Actualizar Conjunto</button>
+            <button class="botonRojo" id="EliminarItemBtn" disabled>Eliminar Conjunto</button>
+        </div>
+        <div class="barraBusqueda">
+            <label for="nombreItemBuscado">Nombre</label>
+            <input type="text" class="inputTexto" id="nombreItemBuscado">
+            <button class="botonAmarillo" onclick="buscarItems()">Buscar</button>
+        </div>
+
+        <div class="cards-conjuntos" id="cards-conjuntos">
+            <div class="card-conjunto">
+                <img src="./Placeholder.jpg" alt="">
+                <div class="nombre">
+                    Nombre
+                </div>
+                <div class="descripcion">
+                    Descripción
+                </div>
+                <div class="seccion">
+                    n-seccion
+                </div>
+                <div class="boton">
+                    <button class="botonAmarillo">IMPRIMIR</button>
+                </div>
+                
+            </div>
+
+            <div class="card-conjunto">
+                <img src="./Placeholder.jpg" alt="">
+                <div class="nombre">
+                    Nombre
+                </div>
+                <div class="descripcion">
+                    Descripción
+                </div>
+                <div class="seccion">
+                    n-seccion
+                </div>
+                <div class="boton">
+                    <button class="botonAmarillo">IMPRIMIR</button>
+                </div>
+            </div>
+
+            
+        </div>
     </div>
 
     <div id="items" style="display: none;">
