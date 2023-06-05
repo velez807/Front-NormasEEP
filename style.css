@@ -14,7 +14,7 @@ body {
     padding: 0;
 }
 
-img{
+img {
     aspect-ratio: 1/1;
     border-radius: 10px;
 }
@@ -130,7 +130,7 @@ a.active:before {
 .barraBusqueda .botonAmarillo {
     margin-left: 1%;
     margin-right: 1%;
-    transform: scale(1.4 , 1.5);
+    transform: scale(1.4, 1.5);
     font-size: 0.6rem;
 }
 
@@ -368,7 +368,7 @@ th {
     margin-left: 10px;
 }
 
-.cards-secciones{
+.cards-secciones {
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
@@ -376,7 +376,7 @@ th {
     padding: 10px;
 }
 
-.card-seccion{
+.card-seccion {
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 13px;
     padding: 10px;
@@ -384,14 +384,70 @@ th {
     flex-direction: column;
 }
 
-.card-seccion .seccion{
+.card-seccion .seccion {
     margin-top: 10px;
     text-align: center;
 }
 
+/* modal */
+.modal-crear-seccion {
+    background-color: var(--color-principal);
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 998;
+    position: absolute;
+    left: 35%;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 25%;
+    top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    flex-direction: column;
+}
+
+
+.modal-crear-seccion .botonRojo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    transform: scale(1.2);
+}
+
+.form-crear-seccion p {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+}
+
+#nivel{
+    height: 3vh;
+    background-color: var(--color-principal);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #C9C9C9;
+}
+.sinFlechas::-webkit-inner-spin-button,
+.sinFlechas::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.sinFlechas {
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+
 
 /* Conjuntos */
-#selectItems{
+#selectItems {
     background-color: var(--color-principal);
     text-align: center;
     border-radius: 5px;
@@ -399,7 +455,8 @@ th {
     color: #C9C9C9;
     width: 200px;
 }
-.cards-conjuntos{
+
+.cards-conjuntos {
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
@@ -407,7 +464,7 @@ th {
     padding: 10px;
 }
 
-.card-conjunto{
+.card-conjunto {
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 13px;
     padding: 20px;
@@ -415,16 +472,16 @@ th {
     flex-direction: column;
 }
 
-.card-conjunto img{
+.card-conjunto img {
     margin-bottom: 20px;
 }
 
-.card-conjunto .conjunto{
+.card-conjunto .conjunto {
     margin-top: 10px;
     text-align: center;
 }
 
-.card-conjunto .boton{
+.card-conjunto .boton {
     margin: 15px;
     text-align: center;
     margin-left: auto;
@@ -432,7 +489,7 @@ th {
 }
 
 /* modal */
-.modal-crear-conjunto{
+.modal-crear-conjunto {
     background-color: var(--color-principal);
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
     z-index: 998;
@@ -447,7 +504,7 @@ th {
     top: 10%;
 }
 
-.modal-crear-conjunto .form-crear-conjunto{
+.modal-crear-conjunto .form-crear-conjunto {
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -455,7 +512,7 @@ th {
 
 }
 
-.modal-crear-conjunto .botonRojo{
+.modal-crear-conjunto .botonRojo {
     position: absolute;
     top: 0;
     right: 0;
@@ -463,7 +520,7 @@ th {
     transform: scale(1.2);
 }
 
-.form-crear-conjunto p{
+.form-crear-conjunto p {
     position: absolute;
     margin: 0;
     top: 0;
@@ -473,18 +530,24 @@ th {
 
 }
 
-.form-crear-conjunto, p, input, textarea, div, select, .botonAmarillo{
+.form-crear-conjunto,
+p,
+input,
+textarea,
+div,
+select,
+.botonAmarillo {
     margin-top: 15px;
 }
 
-.form-crear-conjunto .botonAmarillo{
+.form-crear-conjunto .botonAmarillo {
     width: 40%;
     margin-left: 30%;
     margin-right: 30%;
     height: 3vh;
 }
 
-.form-crear-conjunto select{
+.form-crear-conjunto select {
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
@@ -495,6 +558,9 @@ th {
     border: 1px solid #C9C9C9;
     text-align: center;
 }
+
+
+
 
 
 /* Media Quesries, A.K.A el machetazo pa que eso sea responsive */
@@ -612,6 +678,7 @@ th {
         width: 8vw;
         height: 3vh;
     }
+
     .modal,
     .modalConfirmacion {
         left: 5%;

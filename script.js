@@ -371,8 +371,64 @@ function cargarSecciones() { // para el select
     xhr.send();
 }
 
-// Llamar a la función para cargar las secciones al cargar el DOM
 document.addEventListener('DOMContentLoaded', cargarSecciones);
+
+
+function cargarNivelSecciones() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:5000/secciones', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var secciones = JSON.parse(xhr.responseText);
+            var selectElement = document.getElementById('selectNivelSecciones');
+
+            secciones.forEach(function (seccion) {
+                var option = document.createElement('option');
+                option.value = seccion.Nivel;
+                option.text = seccion.Nivel;
+                selectElement.appendChild(option);
+                var options = document.querySelectorAll('#selectNivelSecciones option');
+                var arr = Array.prototype.slice.call(options).sort(function (a, b) {
+                    return a.value - b.value;
+                }
+                );
+                arr.forEach(function (el) {
+                    selectElement.appendChild(el);
+                }
+                );
+                var i;
+                for (i = 0; i < selectElement.length - 1; i++) {
+                    if (selectElement.options[i].value == selectElement.options[i + 1].value) {
+                        selectElement.remove(i + 1);
+                    }
+                }
+
+            });
+        }
+    };
+    xhr.send();
+}
+
+document.addEventListener('DOMContentLoaded', cargarNivelSecciones);
+
+
+function mostrarModalSeccion(){
+    const modal = document.getElementById('modalCreateSeccion');
+    modal.style.display = 'flex';
+    const botonCerrar = document.getElementById('cerrarModalCreateSeccion');
+    botonCerrar.addEventListener('click', function () { modal.style.display = 'none'; });
+}
+
+function crearSeccion(){
+    const nombre = document.getElementById('nombreCreateSeccion').value;
+    const descripcion = document.getElementById('descCreateSeccion').value;
+    const nivel = document.getElementById('nivel').value;
+    var json_seccion = {};
+    json_seccion.nombre = nombre;
+    json_seccion.nivel = nivel;
+    json_seccion.descripcion = descripcion;
+    solicitudPost('http://localhost:5000/seccionNuevaDiccionario/', json_seccion);
+}
 
 
 
@@ -382,7 +438,7 @@ document.addEventListener('DOMContentLoaded', cargarSecciones);
 /////////////////////////////
 // CONJUNTOS
 /////////////////////////////
-  
+
 
 
 function abrirModal() {
@@ -443,16 +499,14 @@ function buscarConjuntosConItem() {
         .then(response => response.json())
         .then(data => {
             const cardsContainer = document.getElementById('cards-conjuntos');
-            cardsContainer.innerHTML = ''; // Limpiar el contenido actual de las cards
+            cardsContainer.innerHTML = '';
 
             for (let i = 0; i < data.length; i++) {
                 const conjunto = data[i];
 
-                // Crear una nueva card para cada conjunto
                 const card = document.createElement('div');
                 card.classList.add('card-conjunto');
 
-                // consultar la imagen del conjunto
                 const imagen = document.createElement('img');
                 fetch('http://localhost:5000/dibujoConjunto/' + conjunto[0])
                     .then(response => response.json())
@@ -466,34 +520,33 @@ function buscarConjuntosConItem() {
                 card.appendChild(imagen);
 
 
-                // Agregar el nombre del conjunto
                 const nombre = document.createElement('div');
                 nombre.classList.add('nombre');
                 nombre.textContent = conjunto[1];
                 card.appendChild(nombre);
 
-                // Agregar la descripción del conjunto
                 const descripcion = document.createElement('div');
                 descripcion.classList.add('descripcion');
                 descripcion.textContent = conjunto[2];
                 card.appendChild(descripcion);
 
-                // Agregar la sección del conjunto
                 const seccion = document.createElement('div');
                 seccion.classList.add('seccion');
                 seccion.textContent = conjunto[3];
                 card.appendChild(seccion);
 
-                // Agregar el botón de imprimir
                 const boton = document.createElement('div');
                 boton.classList.add('boton');
                 const botonImprimir = document.createElement('button');
                 botonImprimir.classList.add('botonAmarillo');
                 botonImprimir.textContent = 'IMPRIMIR';
+                botonImprimir.addEventListener('click', function () {
+                    calcularPrecioConjunto(conjunto[0], conjunto[1]);
+                });
                 boton.appendChild(botonImprimir);
                 card.appendChild(boton);
 
-                // Agregar la card al contenedor
+
                 cardsContainer.appendChild(card);
             }
         })
@@ -501,6 +554,54 @@ function buscarConjuntosConItem() {
             console.log(error);
         });
 }
+
+
+function calcularPrecioConjunto(id_conjunto, nombre_conjunto) {
+    var endpoint = 'http://localhost:5000/itemsConjunto/';
+    var nombreComunItem;
+    var precioItem;
+    var precioTotal = 0;
+    var tabla = document.getElementById('tablaConjunto');
+    var tbody = tabla.getElementsByTagName('tbody')[0];
+    var precioTotalElemento = document.getElementById('precioTotal');
+    var titulo = document.getElementById('titulo-tabla');
+    var divTabla = document.getElementById('div-tabla');
+
+    fetch(endpoint + id_conjunto)
+        .then(response => response.json())
+        .then(data => {
+            titulo.textContent = 'Presupuesto de ' + nombre_conjunto;
+            for (let i = 0; i < data.length; i++) {
+                nombreComunItem = data[i].Nombre_Comun;
+                precioItem = data[i].Precio;
+                precioTotal += precioItem;
+
+                var fila = document.createElement('tr');
+
+                var celdaNombre = document.createElement('td');
+                celdaNombre.textContent = nombreComunItem;
+                fila.appendChild(celdaNombre);
+
+                var celdaPrecio = document.createElement('td');
+                celdaPrecio.textContent = precioItem;
+                fila.appendChild(celdaPrecio);
+
+                tbody.appendChild(fila);
+            }
+
+            precioTotalElemento.textContent = 'Total: ' + precioTotal;
+
+            var nuevaPestaña = window.open('', '_blank');
+            nuevaPestaña.document.write('<style>table {border-collapse: collapse;width: 50%;margin-left: auto;margin-right: auto;margin-top: 5%;}.tabla-imprimible h2{text-align: center;color: black;}td,th {border: 1px solid black;padding: 10px;color: black;}</style>');
+            nuevaPestaña.document.write(divTabla.innerHTML);
+            nuevaPestaña.print();
+            nuevaPestaña.close();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 
 
 
