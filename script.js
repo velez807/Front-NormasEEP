@@ -142,7 +142,7 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
         .then(response => response.json())
         .then(data => {
             let totalLocal = 0;
-            let flag=false;
+            let flag = false;
             for (let i = 0; i < data.length; i++) {
                 let nuevoTr = document.createElement('tr');
                 let idTd = document.createElement('td');
@@ -151,8 +151,8 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
                 idTd.innerText = data[i][0];
                 nuevoTr.appendChild(idTd);
                 nuevoTr.appendChild(nombreTd);
-                nuevoTr.onclick=function(){
-                    parrafoTotal.innerText="Total: $"+nuevoTr.id;
+                nuevoTr.onclick = function () {
+                    parrafoTotal.innerText = "Total: $" + nuevoTr.id;
                 }
                 tablaModal.appendChild(nuevoTr);
                 fetch('http://localhost:5000/itemsConjunto/' + data[i][0])
@@ -161,10 +161,10 @@ function ConsultarConjuntosItem(id_item, nombre_item) {
                         for (let j = 0; j < dataC.length; j++) {
                             if (dataC[j].ID_Item == id_item) {
                                 totalLocal = totalLocal + (dataC[j].Precio * dataC[j].Cantidad);
-                                nuevoTr.id=(dataC[j].Precio * dataC[j].Cantidad);
-                                if (flag==false){
-                                    parrafoTotal.innerText="Total: $"+nuevoTr.id;
-                                    flag=true;
+                                nuevoTr.id = (dataC[j].Precio * dataC[j].Cantidad);
+                                if (flag == false) {
+                                    parrafoTotal.innerText = "Total: $" + nuevoTr.id;
+                                    flag = true;
                                 }
                             }
                         }
@@ -247,11 +247,11 @@ function UpdateItem(item) {
     seleccionarArchivo.addEventListener('change', function (event) {
         const files = event.target.files;
         convertirImagen(files[0])
-        .then(function (base64Data) {foto=base64Data});
+            .then(function (base64Data) { foto = base64Data });
     });
-    botonCrearItem.addEventListener('click',function(){
-        let json_item={}
-        json_item.ID_Item=item.ID_Item;
+    botonCrearItem.addEventListener('click', function () {
+        let json_item = {}
+        json_item.ID_Item = item.ID_Item;
         json_item.Nombre = nombreInput.value;
         json_item.Descripcion = descripcionInput.value;
         json_item.Proveedor = proveedorInput.value;
@@ -264,14 +264,14 @@ function UpdateItem(item) {
         solicitudPut('http://127.0.0.1:5000/item/', json_item);
     });
 }
-function DeleteItem(id){
-    const modal= document.getElementById('modalConfirmarItem');
+function DeleteItem(id) {
+    const modal = document.getElementById('modalConfirmarItem');
     modal.style.display = 'block';
-    const botonCerrar=document.getElementById('cerrarModalConfirmarItem');
-    botonCerrar.addEventListener('click',function(){modal.style.display = 'none';});
-    const botonConfirmar=document.getElementById('ConfirmarEliminarItem');
-    let url='http://127.0.0.1:5000/item/'+id;
-    botonConfirmar.addEventListener('click',function(){solicitudDelete(url)});
+    const botonCerrar = document.getElementById('cerrarModalConfirmarItem');
+    botonCerrar.addEventListener('click', function () { modal.style.display = 'none'; });
+    const botonConfirmar = document.getElementById('ConfirmarEliminarItem');
+    let url = 'http://127.0.0.1:5000/item/' + id;
+    botonConfirmar.addEventListener('click', function () { solicitudDelete(url) });
 }
 //Esta devuelve la imagen en base64
 function convertirImagen(archivo) {
@@ -304,11 +304,11 @@ function solicitudPost(url, data) {
         .then(response => response.json())
         .then(responseData => {
             console.log(responseData);
-            location.reload(); 
+            location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
-        });   
+        });
 }
 //Lo mismo de arriba pero con put
 function solicitudPut(url, data) {
@@ -323,14 +323,14 @@ function solicitudPut(url, data) {
         .then(response => response.json())
         .then(responseData => {
             console.log(responseData);
-            location.reload(); 
+            location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
-        });   
+        });
 }
 //¿Que será? ¿Que será? ¡Otra solicitud igual que las anteriores!
-function solicitudDelete(url){
+function solicitudDelete(url) {
     fetch(url, {
         method: 'DELETE',
         headers: {
@@ -340,9 +340,172 @@ function solicitudDelete(url){
         .then(response => response.json())
         .then(responseData => {
             console.log(responseData);
-            location.reload(); 
+            location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
-        });   
+        });
 }
+
+
+
+///////////////////////////////
+// SECCIONES
+///////////////////////////////
+function cargarSecciones() { // para el select
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:5000/secciones', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var secciones = JSON.parse(xhr.responseText);
+            var selectElement = document.getElementById('selectSecciones');
+
+            secciones.forEach(function (seccion) {
+                var option = document.createElement('option');
+                option.value = seccion.ID_Seccion;
+                option.text = seccion.Nombre;
+                selectElement.appendChild(option);
+            });
+        }
+    };
+    xhr.send();
+}
+
+// Llamar a la función para cargar las secciones al cargar el DOM
+document.addEventListener('DOMContentLoaded', cargarSecciones);
+
+
+
+
+
+
+/////////////////////////////
+// CONJUNTOS
+/////////////////////////////
+  
+
+
+function abrirModal() {
+    const modal = document.getElementById('modalCreateConjunto');
+    modal.style.display = 'block';
+    const botonCerrar = document.getElementById('cerrarModalCreateConjunto');
+    botonCerrar.addEventListener('click', function () { modal.style.display = 'none'; });
+}
+
+
+function crearConjunto() {
+    let imagen = document.getElementById('file-input').files[0];
+    convertirImagen(imagen)
+        .then(function (base64Data) {
+            const nombre = document.getElementById('nombreCreateConjunto').value;
+            const descripcion = document.getElementById('descCreateConjunto').value;
+            const idSeccion = document.getElementById('selectSecciones').value;
+            var json_conjunto = {};
+            json_conjunto.Nombre = nombre;
+            json_conjunto.Descripcion = descripcion;
+            json_conjunto.ID_Seccion = idSeccion;
+            json_conjunto.Dibujo = base64Data;
+
+            solicitudPost('http://localhost:5000/conjunto/', json_conjunto);
+        }
+        )
+        .catch(function (error) {
+            alert(error);
+        }
+        );
+}
+
+function cargarItemsSelect() {
+    var selectElement = document.getElementById('selectItems');
+
+    fetch('http://localhost:5000/items')
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                var option = document.createElement('option');
+                option.value = data[i].ID_Item;
+                option.text = data[i].Nombre_Comun;
+                selectElement.appendChild(option);
+            }
+        })
+        .catch(error => {
+            // Manejar errores
+        }
+        );
+}
+
+document.addEventListener('DOMContentLoaded', cargarItemsSelect);
+
+function buscarConjuntosConItem() {
+    const item = document.getElementById('selectItems').value;
+
+    fetch('http://localhost:5000/conjuntosItem/' + item)
+        .then(response => response.json())
+        .then(data => {
+            const cardsContainer = document.getElementById('cards-conjuntos');
+            cardsContainer.innerHTML = ''; // Limpiar el contenido actual de las cards
+
+            for (let i = 0; i < data.length; i++) {
+                const conjunto = data[i];
+
+                // Crear una nueva card para cada conjunto
+                const card = document.createElement('div');
+                card.classList.add('card-conjunto');
+
+                // consultar la imagen del conjunto
+                const imagen = document.createElement('img');
+                fetch('http://localhost:5000/dibujoConjunto/' + conjunto[0])
+                    .then(response => response.json())
+                    .then(data => {
+                        imagen.src = 'data:image/jpeg;base64,' + data.Dibujo;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
+                card.appendChild(imagen);
+
+
+                // Agregar el nombre del conjunto
+                const nombre = document.createElement('div');
+                nombre.classList.add('nombre');
+                nombre.textContent = conjunto[1];
+                card.appendChild(nombre);
+
+                // Agregar la descripción del conjunto
+                const descripcion = document.createElement('div');
+                descripcion.classList.add('descripcion');
+                descripcion.textContent = conjunto[2];
+                card.appendChild(descripcion);
+
+                // Agregar la sección del conjunto
+                const seccion = document.createElement('div');
+                seccion.classList.add('seccion');
+                seccion.textContent = conjunto[3];
+                card.appendChild(seccion);
+
+                // Agregar el botón de imprimir
+                const boton = document.createElement('div');
+                boton.classList.add('boton');
+                const botonImprimir = document.createElement('button');
+                botonImprimir.classList.add('botonAmarillo');
+                botonImprimir.textContent = 'IMPRIMIR';
+                boton.appendChild(botonImprimir);
+                card.appendChild(boton);
+
+                // Agregar la card al contenedor
+                cardsContainer.appendChild(card);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+
+
+
+
+
+
+

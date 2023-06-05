@@ -15,7 +15,6 @@ body {
 }
 
 img{
-    width: 90%;
     aspect-ratio: 1/1;
     border-radius: 10px;
 }
@@ -354,7 +353,6 @@ th {
     width: 40px;
     text-align: center;
     font-size: 1.1em;
-
 }
 
 
@@ -393,7 +391,14 @@ th {
 
 
 /* Conjuntos */
-
+#selectItems{
+    background-color: var(--color-principal);
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #C9C9C9;
+    color: #C9C9C9;
+    width: 200px;
+}
 .cards-conjuntos{
     margin-top: 20px;
     display: grid;
@@ -424,7 +429,71 @@ th {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
 
+/* modal */
+.modal-crear-conjunto{
+    background-color: var(--color-principal);
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 998;
+    position: absolute;
+    left: 35%;
+    text-align: center;
+    display: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 25%;
+    top: 10%;
+}
+
+.modal-crear-conjunto .form-crear-conjunto{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.modal-crear-conjunto .botonRojo{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    transform: scale(1.2);
+}
+
+.form-crear-conjunto p{
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+}
+
+.form-crear-conjunto, p, input, textarea, div, select, .botonAmarillo{
+    margin-top: 15px;
+}
+
+.form-crear-conjunto .botonAmarillo{
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 3vh;
+}
+
+.form-crear-conjunto select{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 3vh;
+    background-color: var(--color-principal);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #C9C9C9;
+    text-align: center;
 }
 
 

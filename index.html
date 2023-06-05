@@ -66,57 +66,59 @@
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 
     <div id="conjuntos" style="display: none;">
         <div class="botones">
-            <button class="botonAmarillo" onclick="CrearItem()">Crear Conjunto</button>
+            <button class="botonAmarillo" onclick="abrirModal()">Crear Conjunto</button>
             <button class="botonAmarillo" id="ActualizarItemBtn" disabled>Actualizar Conjunto</button>
             <button class="botonRojo" id="EliminarItemBtn" disabled>Eliminar Conjunto</button>
         </div>
         <div class="barraBusqueda">
             <label for="nombreItemBuscado">Nombre</label>
-            <input type="text" class="inputTexto" id="nombreItemBuscado">
-            <button class="botonAmarillo" onclick="buscarItems()">Buscar</button>
+            <select id="selectItems">
+                <option value="">ïtems</option>
+            </select>
+            <button class="botonAmarillo" onclick="buscarConjuntosConItem()">Buscar</button>
         </div>
 
         <div class="cards-conjuntos" id="cards-conjuntos">
             <div class="card-conjunto">
-                <img src="./Placeholder.jpg" alt="">
-                <div class="nombre">
+                <img src="./Placeholder.jpg" alt="" id="DibujoConjunto">
+                <div class="nombre" id="nombreConjunto">
                     Nombre
                 </div>
-                <div class="descripcion">
+                <div class="descripcion" id="descConjunto">
                     Descripción
                 </div>
-                <div class="seccion">
+                <div class="seccion" id="idConjunto">
                     n-seccion
                 </div>
                 <div class="boton">
                     <button class="botonAmarillo">IMPRIMIR</button>
                 </div>
-                
-            </div>
 
-            <div class="card-conjunto">
-                <img src="./Placeholder.jpg" alt="">
-                <div class="nombre">
-                    Nombre
-                </div>
-                <div class="descripcion">
-                    Descripción
-                </div>
-                <div class="seccion">
-                    n-seccion
-                </div>
-                <div class="boton">
-                    <button class="botonAmarillo">IMPRIMIR</button>
-                </div>
             </div>
+        </div>
 
-            
+        <div class="modal-crear-conjunto" id="modalCreateConjunto">
+            <button class="botonRojo" id="cerrarModalCreateConjunto">X</button>
+            <div class="form-crear-conjunto">
+                <p>Crear Conjunto</p>
+                <input type="text" class="inputTexto" id="nombreCreateConjunto" placeholder="Nombre">
+                <textarea class="inputTexto" id="descCreateConjunto" cols="30" rows="5"
+                    placeholder="Descripción"></textarea>
+                <div class="custom-file-input">
+                    <label for="file-input" id="file-label">Seleccionar archivo</label>
+                    <input type="file" id="file-input" accept=".jpg,.png,.jpeg">
+                </div>
+                <select id="selectSecciones">
+                    <option value="">Nombre Sección</option>
+                </select>
+                <button class="botonAmarillo" onclick="crearConjunto()">Crear</button>
+            </div>
         </div>
     </div>
 
@@ -127,7 +129,7 @@
             <button class="botonRojo" id="EliminarItemBtn" disabled>Eliminar item</button>
         </div>
         <div class="barraBusqueda">
-            <label for="nombreItemBuscado">Nombre</label>
+            <label for="nombreItemBuscado">Nombre ítem</label>
             <input type="text" class="inputTexto" id="nombreItemBuscado">
             <button class="botonAmarillo" onclick="buscarItems()">Buscar</button>
         </div>
@@ -170,7 +172,7 @@
     </div>
 
     <script src="./navbar.js"></script>
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
     <script>getItems()</script>
 </body>
 
