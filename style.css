@@ -641,6 +641,7 @@ select,
         grid-template-columns: 1% 24% 25% 25% 25%;
         grid-template-rows: 0.1em 4em 4em 4em 1em 4em 4em 4em 4em 4em 4em;
         gap: 0px 0px;
+        height: 90vh;
         grid-auto-flow: row;
         grid-template-areas:
             ". . . . ."
