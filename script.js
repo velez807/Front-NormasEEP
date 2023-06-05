@@ -115,8 +115,9 @@ function buscarItems() {
     for (var i = 0; i < cardItems.length; i++) {
         let nombreDiv = cardItems[i].getElementsByClassName('Nombre')[0];
         let nombre = nombreDiv.textContent.toLowerCase();
-
-        if (nombre.includes(searchInput)) {
+        let nombreComunDiv = cardItems[i].getElementsByClassName('NombreComun')[0];
+        let nombreComun = nombreComunDiv.textContent.toLowerCase();
+        if (nombre.includes(searchInput) || nombreComun.includes(searchInput)) {
             cardItems[i].style.display = 'grid';
         } else {
             cardItems[i].style.display = 'none';
