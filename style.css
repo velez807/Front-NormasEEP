@@ -350,7 +350,6 @@ th {
 .busqueda-seccion select {
     margin-right: 10px;
     background-color: var(--color-amarillo);
-    width: 40px;
     text-align: center;
     font-size: 1.1em;
 }
@@ -382,12 +381,15 @@ th {
     padding: 10px;
     display: flex;
     flex-direction: column;
+    width: 250px;
 }
 
 
 .card-seccion .seccion {
-    margin-top: 10px;
     text-align: center;
+    margin-top: auto;
+    padding-top: 10px;
+
 }
 
 /* modal */
@@ -494,6 +496,7 @@ th {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
     transform: scale(1.5, 1.2);
 }
 
@@ -777,4 +780,5 @@ select,
         width: 90vw;
         top: 10%;
     }
+
 }

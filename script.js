@@ -378,59 +378,21 @@ function cargarSecciones(selectId) {
     xhr.send();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    cargarSecciones('selectSecciones'); // ID del select en la sección de crear conjuntos
-    cargarSecciones('selectSeccionesActualizar'); // ID del select en la sección de actualizar conjuntos
+document.addEventListener('DOMContentLoaded', function () {
+    cargarSecciones('selectSecciones');
+    cargarSecciones('selectSeccionesActualizar');
+    cargarSecciones('selectBusquedaSecciones')
 });
 
 
-
-function cargarNivelSecciones() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:5000/secciones', true);
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            var secciones = JSON.parse(xhr.responseText);
-            var selectElement = document.getElementById('selectNivelSecciones');
-
-            secciones.forEach(function (seccion) {
-                var option = document.createElement('option');
-                option.value = seccion.Nivel;
-                option.text = seccion.Nivel;
-                selectElement.appendChild(option);
-                var options = document.querySelectorAll('#selectNivelSecciones option');
-                var arr = Array.prototype.slice.call(options).sort(function (a, b) {
-                    return a.value - b.value;
-                }
-                );
-                arr.forEach(function (el) {
-                    selectElement.appendChild(el);
-                }
-                );
-                var i;
-                for (i = 0; i < selectElement.length - 1; i++) {
-                    if (selectElement.options[i].value == selectElement.options[i + 1].value) {
-                        selectElement.remove(i + 1);
-                    }
-                }
-
-            });
-        }
-    };
-    xhr.send();
-}
-
-document.addEventListener('DOMContentLoaded', cargarNivelSecciones);
-
-
-function mostrarModalSeccion(){
+function mostrarModalSeccion() {
     const modal = document.getElementById('modalCreateSeccion');
     modal.style.display = 'flex';
     const botonCerrar = document.getElementById('cerrarModalCreateSeccion');
     botonCerrar.addEventListener('click', function () { modal.style.display = 'none'; });
 }
 
-function crearSeccion(){
+function crearSeccion() {
     const nombre = document.getElementById('nombreCreateSeccion').value;
     const descripcion = document.getElementById('descCreateSeccion').value;
     const nivel = document.getElementById('nivel').value;
@@ -449,6 +411,76 @@ function crearSeccion(){
 /////////////////////////////
 // CONJUNTOS
 /////////////////////////////
+
+function obtenerConjuntosPorSeccion() {
+    // Obtener el ID de sección seleccionado del select
+    var selectElement = document.getElementById('selectBusquedaSecciones');
+    var idSeccion = selectElement.value;
+
+    // Construir la URL del endpoint
+    var endpointURL = 'http://localhost:5000/conjuntosListadoSecciones/';
+
+    // Configurar los datos de la solicitud
+    var data = {
+        listadoSecciones: [idSeccion]
+    };
+
+    // Realizar la solicitud POST al endpoint
+    fetch(endpointURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(resultados => {
+            const cardsContainer = document.getElementById('cards-secciones');
+
+            for (const seccionId in resultados) {
+                const conjuntos = resultados[seccionId];
+
+                conjuntos.forEach(conjunto => {
+                    const card = document.createElement('div');
+                    card.classList.add('card-seccion');
+
+                    const imagen = document.createElement('img');
+                    fetch('http://localhost:5000/dibujoConjunto/' + conjunto[0])
+                        .then(response => response.json())
+                        .then(data => {
+                            imagen.src = 'data:image/jpeg;base64,' + data.Dibujo;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                    card.appendChild(imagen);
+
+                    const nombreElement = document.createElement('div');
+                    nombreElement.textContent = conjunto[1];
+                    card.appendChild(nombreElement);
+
+                    const descripcionElement = document.createElement('div');
+                    descripcionElement.textContent = conjunto[2];
+                    card.appendChild(descripcionElement);
+
+                    const seccionElement = document.createElement('div');
+                    seccionElement.className = 'seccion';
+                    seccionElement.textContent = 'Sección: ' + conjunto[3];
+                    card.appendChild(seccionElement);
+
+
+                    // Agregar la card al contenedor
+                    cardsContainer.appendChild(card);
+                });
+            }
+
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
 
 
 
@@ -496,7 +528,7 @@ function cargarItemsSelect() {
             }
         })
         .catch(error => {
-            // Manejar errores
+            alert(error);
         }
         );
 }
@@ -509,6 +541,7 @@ function buscarConjuntosConItem() {
     fetch('http://localhost:5000/conjuntosItem/' + item)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             const cardsContainer = document.getElementById('cards-conjuntos');
             cardsContainer.innerHTML = '';
 
@@ -525,18 +558,18 @@ function buscarConjuntosConItem() {
                         console.log(error);
                     });
 
-                
+
 
                 const card = document.createElement('div');
                 card.classList.add('card-conjunto');
                 card.id = conjunto[0];
                 card.addEventListener('click', function () {
-                    seleccionarConjunto(conjunto[0],conjunto[1],conjunto[2],imagen.src,conjunto[3]);
+                    seleccionarConjunto(conjunto[0], conjunto[1], conjunto[2], imagen.src, conjunto[3]);
                 });
 
                 card.appendChild(imagen);
 
-                
+
 
 
                 const nombre = document.createElement('div');
@@ -579,32 +612,32 @@ function seleccionarConjunto(id_conjunto, nombre_conjunto, desc_conjunto, dibujo
     botonActualizarConjunto.disabled = false;
     botonEliminarConjunto.disabled = false;
     botonActualizarConjunto.onclick = function () {
-      UpdateConjunto(id_conjunto,nombre_conjunto,desc_conjunto,dibujo_conjunto,seccion_conjunto);
+        UpdateConjunto(id_conjunto, nombre_conjunto, desc_conjunto, dibujo_conjunto, seccion_conjunto);
     }
     botonEliminarConjunto.disabled = false;
     botonEliminarConjunto.onclick = function () {
-      DeleteConjunto(id_conjunto);
+        DeleteConjunto(id_conjunto);
     }
-  
+
     for (var i = 0; i < cardConjuntos.length; i++) {
-      if (cardConjuntos[i].id == id_conjunto) {
-        let tarjeta = cardConjuntos[i];
-        cardConjuntos[i].classList.add('seleccionado');
-        cardConjuntos[i].addEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
-      } else {
-        cardConjuntos[i].classList.remove('seleccionado');
-        cardConjuntos[i].removeEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
-      }
+        if (cardConjuntos[i].id == id_conjunto) {
+            let tarjeta = cardConjuntos[i];
+            cardConjuntos[i].classList.add('seleccionado');
+            cardConjuntos[i].addEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
+        } else {
+            cardConjuntos[i].classList.remove('seleccionado');
+            cardConjuntos[i].removeEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
+        }
     }
-  }
-  
-  function desSeleccionarConjunto(cardConjunto, id_conjunto) {
+}
+
+function desSeleccionarConjunto(cardConjunto, id_conjunto) {
     botonActualizarConjunto.disabled = true;
     botonEliminarConjunto.disabled = true;
     cardConjunto.classList.remove('seleccionado');
     cardConjunto.addEventListener('click', () => seleccionarConjunto(id_conjunto));
-  }
-  
+}
+
 
 function UpdateConjunto(id_conjunto, nombre_conjunto, desc_conjunto, dibujo_conjunto, seccion_conjunto) {
     var endpoint = 'http://localhost:5000/conjunto/';
