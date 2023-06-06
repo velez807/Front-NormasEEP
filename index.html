@@ -89,6 +89,33 @@
             </div>
         </div>
 
+        <div class="modal-actualizar-conjunto" id="modalUpdateConjunto">
+            <button class="botonRojo" id="cerrarModalUpdateConjunto">X</button>
+            <div class="form-actualizar-conjunto">
+                <p id="tituloUpdateConjunto"></p>
+                <input type="text" class="inputTexto" id="nombreUpdateConjunto" placeholder="Nombre">
+                <textarea class="inputTexto" id="descUpdateConjunto" cols="30" rows="5"
+                    placeholder="Descripción"></textarea>
+                <div class="custom-file-input">
+                    <label for="file-input" id="file-label">Seleccionar archivo</label>
+                    <input type="file" id="file-input-update" accept=".jpg,.png,.jpeg">
+                </div>
+                Dejar vacío si no va cambiar la imagen
+                <select id="selectSeccionesActualizar" class="selectActualizarConjunto">
+                    <option value="">Nombre Sección</option>
+                </select>
+                <button class="botonAmarillo" id="botonActualizarConjunto">Actualizar</button>
+            </div>
+        </div>
+
+        <div class="modalConfirmacion" id="modalConfirmarConjunto">
+            <p>¿Está seguro que quiere
+                eliminar el conjunto?</p>
+            <button class="botonRojo" id="ConfirmarEliminarConjunto">Si</button>
+            <button class="botonAmarillo" id="cerrarModalConfirmarConjunto">No</button>
+            <p>Esta acción es irreversible</p>
+        </div>
+
         <div class="tabla-imprimible" id="div-tabla" style="display: none;">
             <h2 id="titulo-tabla"></h2>
             <table id="tablaConjunto">

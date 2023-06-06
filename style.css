@@ -384,6 +384,7 @@ th {
     flex-direction: column;
 }
 
+
 .card-seccion .seccion {
     margin-top: 10px;
     text-align: center;
@@ -460,7 +461,6 @@ th {
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
-    grid-gap: 20px;
     padding: 10px;
 }
 
@@ -470,6 +470,15 @@ th {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    width: 250px;
+}
+
+.card-conjunto.seleccionado{
+    border: 2px solid black;
+}
+
+.card-conjunto:hover {
+    border: 2px solid black;
 }
 
 .card-conjunto img {
@@ -482,10 +491,10 @@ th {
 }
 
 .card-conjunto .boton {
-    margin: 15px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    transform: scale(1.5, 1.2);
 }
 
 /* modal */
@@ -558,6 +567,83 @@ select,
     border: 1px solid #C9C9C9;
     text-align: center;
 }
+
+/* modal actualizar */
+.modal-actualizar-conjunto {
+    background-color: var(--color-principal);
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 998;
+    position: absolute;
+    left: 35%;
+    text-align: center;
+    display: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    width: 25%;
+    top: 10%;
+}
+
+.modal-actualizar-conjunto .form-actualizar-conjunto {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.modal-actualizar-conjunto .botonRojo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    transform: scale(1.2);
+}
+
+.form-actualizar-conjunto p {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+
+}
+
+.form-crear-conjunto,
+p,
+input,
+textarea,
+div,
+select,
+.botonAmarillo {
+    margin-top: 15px;
+}
+
+.form-crear-conjunto .botonAmarillo {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 3vh;
+}
+
+.selectActualizarConjunto{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 3vh;
+    background-color: var(--color-principal);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #C9C9C9;
+    text-align: center;
+}
+
+
+
+
+
+
 .cardsItems .botonAmarillo{
     margin-top: -10%;
     border-radius: 0;

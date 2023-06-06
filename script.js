@@ -2,6 +2,12 @@ const botonEliminarItem = document.getElementById('EliminarItemBtn');
 botonEliminarItem.disabled = true;
 const botonActualizarItem = document.getElementById('ActualizarItemBtn');
 botonActualizarItem.disabled = true;
+
+const botonEliminarConjunto = document.getElementById('EliminarConjuntoBtn');
+botonEliminarConjunto.disabled = true;
+const botonActualizarConjunto = document.getElementById('ActualizarConjuntoBtn');
+botonActualizarConjunto.disabled = true;
+
 function getItems() {
     const divCardsItems = document.getElementById('cardsItems');
     fetch('http://127.0.0.1:5000/items')
@@ -353,13 +359,13 @@ function solicitudDelete(url) {
 ///////////////////////////////
 // SECCIONES
 ///////////////////////////////
-function cargarSecciones() { // para el select
+function cargarSecciones(selectId) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://localhost:5000/secciones', true);
     xhr.onload = function () {
         if (xhr.status === 200) {
             var secciones = JSON.parse(xhr.responseText);
-            var selectElement = document.getElementById('selectSecciones');
+            var selectElement = document.getElementById(selectId);
 
             secciones.forEach(function (seccion) {
                 var option = document.createElement('option');
@@ -372,7 +378,11 @@ function cargarSecciones() { // para el select
     xhr.send();
 }
 
-document.addEventListener('DOMContentLoaded', cargarSecciones);
+document.addEventListener('DOMContentLoaded', function() {
+    cargarSecciones('selectSecciones'); // ID del select en la sección de crear conjuntos
+    cargarSecciones('selectSeccionesActualizar'); // ID del select en la sección de actualizar conjuntos
+});
+
 
 
 function cargarNivelSecciones() {
@@ -505,9 +515,6 @@ function buscarConjuntosConItem() {
             for (let i = 0; i < data.length; i++) {
                 const conjunto = data[i];
 
-                const card = document.createElement('div');
-                card.classList.add('card-conjunto');
-
                 const imagen = document.createElement('img');
                 fetch('http://localhost:5000/dibujoConjunto/' + conjunto[0])
                     .then(response => response.json())
@@ -518,7 +525,18 @@ function buscarConjuntosConItem() {
                         console.log(error);
                     });
 
+                
+
+                const card = document.createElement('div');
+                card.classList.add('card-conjunto');
+                card.id = conjunto[0];
+                card.addEventListener('click', function () {
+                    seleccionarConjunto(conjunto[0],conjunto[1],conjunto[2],imagen.src,conjunto[3]);
+                });
+
                 card.appendChild(imagen);
+
+                
 
 
                 const nombre = document.createElement('div');
@@ -554,6 +572,104 @@ function buscarConjuntosConItem() {
         .catch(error => {
             console.log(error);
         });
+}
+
+function seleccionarConjunto(id_conjunto, nombre_conjunto, desc_conjunto, dibujo_conjunto, seccion_conjunto) {
+    const cardConjuntos = document.getElementsByClassName('card-conjunto');
+    botonActualizarConjunto.disabled = false;
+    botonEliminarConjunto.disabled = false;
+    botonActualizarConjunto.onclick = function () {
+      UpdateConjunto(id_conjunto,nombre_conjunto,desc_conjunto,dibujo_conjunto,seccion_conjunto);
+    }
+    botonEliminarConjunto.disabled = false;
+    botonEliminarConjunto.onclick = function () {
+      DeleteConjunto(id_conjunto);
+    }
+  
+    for (var i = 0; i < cardConjuntos.length; i++) {
+      if (cardConjuntos[i].id == id_conjunto) {
+        let tarjeta = cardConjuntos[i];
+        cardConjuntos[i].classList.add('seleccionado');
+        cardConjuntos[i].addEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
+      } else {
+        cardConjuntos[i].classList.remove('seleccionado');
+        cardConjuntos[i].removeEventListener('click', () => desSeleccionarConjunto(tarjeta, id_conjunto));
+      }
+    }
+  }
+  
+  function desSeleccionarConjunto(cardConjunto, id_conjunto) {
+    botonActualizarConjunto.disabled = true;
+    botonEliminarConjunto.disabled = true;
+    cardConjunto.classList.remove('seleccionado');
+    cardConjunto.addEventListener('click', () => seleccionarConjunto(id_conjunto));
+  }
+  
+
+function UpdateConjunto(id_conjunto, nombre_conjunto, desc_conjunto, dibujo_conjunto, seccion_conjunto) {
+    var endpoint = 'http://localhost:5000/conjunto/';
+
+    const modal = document.getElementById('modalUpdateConjunto');
+    modal.style.display = 'block';
+    const botonCerrar = document.getElementById('cerrarModalUpdateConjunto');
+    botonCerrar.addEventListener('click', function () { modal.style.display = 'none'; });
+    const titulo = document.getElementById('tituloUpdateConjunto');
+    titulo.textContent = 'Actualizar ' + nombre_conjunto;
+    const nombreInput = document.getElementById('nombreUpdateConjunto');
+    nombreInput.value = nombre_conjunto;
+    const descripcionInput = document.getElementById('descUpdateConjunto');
+    descripcionInput.value = desc_conjunto;
+    const archivoInput = document.getElementById('file-input-update');
+    archivoInput.addEventListener('change', function (event) {
+        const files = event.target.files;
+        convertirImagen(files[0])
+            .then(function (base64Data) { dibujo_conjunto = base64Data });
+    }
+    );
+    const selecActualizar = document.getElementById('selectSeccionesActualizar');
+    selecActualizar.value = seccion_conjunto;
+
+    const botonActualizar = document.getElementById('botonActualizarConjunto');
+    botonActualizar.addEventListener('click', function () {
+        var json_conjunto = {};
+        json_conjunto.ID_Conjunto = id_conjunto;
+        json_conjunto.Nombre = nombreInput.value;
+        json_conjunto.Descripcion = descripcionInput.value;
+        json_conjunto.ID_Seccion = selecActualizar.value;
+        json_conjunto.Dibujo = dibujo_conjunto;
+        solicitudPut(endpoint, json_conjunto);
+    });
+}
+
+function DeleteConjunto(id_conjunto) {
+
+    var endpoint = 'http://localhost:5000/conjunto/';
+    var modalConfirmacion = document.getElementById('modalConfirmarConjunto');
+    var btnSi = document.getElementById('ConfirmarEliminarConjunto');
+    var btnNo = document.getElementById('cerrarModalConfirmarConjunto');
+
+    modalConfirmacion.style.display = 'block';
+
+    btnSi.onclick = function () {
+        fetch(endpoint + id_conjunto, {
+            method: 'DELETE',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
+            .then(response => response.json())
+            .then(responseData => {
+                console.log(responseData);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    btnNo.onclick = function () {
+        modalConfirmacion.style.display = 'none';
+    }
 }
 
 
