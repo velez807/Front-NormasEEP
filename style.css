@@ -340,19 +340,9 @@ th {
     border-radius: 0;
 }
 
-.busqueda-seccion {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.busqueda-seccion select {
-    margin-right: 10px;
-    background-color: var(--color-amarillo);
-    text-align: center;
-    font-size: 1.1em;
-}
+
+
 
 
 .busqueda-seccion button {
@@ -367,22 +357,7 @@ th {
     margin-left: 10px;
 }
 
-.cards-secciones {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
-    grid-gap: 20px;
-    padding: 10px;
-}
 
-.card-seccion {
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 13px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-}
 
 
 .card-seccion .seccion {
@@ -392,24 +367,7 @@ th {
 
 }
 
-/* modal */
-.modal-crear-seccion {
-    background-color: var(--color-principal);
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    z-index: 998;
-    position: absolute;
-    left: 35%;
-    text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    width: 25%;
-    top: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    display: none;
-    flex-direction: column;
-}
+
 
 
 .modal-crear-seccion .botonRojo {
@@ -430,21 +388,23 @@ th {
 
 }
 
-#nivel{
+#nivel {
     height: 3vh;
     background-color: var(--color-principal);
     color: white;
     border-radius: 5px;
     border: 1px solid #C9C9C9;
 }
+
 .sinFlechas::-webkit-inner-spin-button,
 .sinFlechas::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
+
 .sinFlechas {
-  -moz-appearance: textfield;
-  appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
 }
 
 
@@ -459,23 +419,9 @@ th {
     width: 200px;
 }
 
-.cards-conjuntos {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
-    padding: 10px;
-}
 
-.card-conjunto {
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 13px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-}
 
-.card-conjunto.seleccionado{
+.card-conjunto.seleccionado {
     border: 2px solid black;
 }
 
@@ -500,21 +446,7 @@ th {
     transform: scale(1.5, 1.2);
 }
 
-/* modal */
-.modal-crear-conjunto {
-    background-color: var(--color-principal);
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    z-index: 998;
-    position: absolute;
-    left: 35%;
-    text-align: center;
-    display: none;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    width: 25%;
-    top: 10%;
-}
+
 
 .modal-crear-conjunto .form-crear-conjunto {
     margin-left: auto;
@@ -571,21 +503,7 @@ select,
     text-align: center;
 }
 
-/* modal actualizar */
-.modal-actualizar-conjunto {
-    background-color: var(--color-principal);
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    z-index: 998;
-    position: absolute;
-    left: 35%;
-    text-align: center;
-    display: none;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    width: 25%;
-    top: 10%;
-}
+
 
 .modal-actualizar-conjunto .form-actualizar-conjunto {
     margin-left: auto;
@@ -630,7 +548,7 @@ select,
     height: 3vh;
 }
 
-.selectActualizarConjunto{
+.selectActualizarConjunto {
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
@@ -647,7 +565,7 @@ select,
 
 
 
-.cardsItems .botonAmarillo{
+.cardsItems .botonAmarillo {
     margin-top: -10%;
     border-radius: 0;
     height: 150%;
@@ -669,7 +587,7 @@ select,
     .cardItem {
         display: grid;
         margin-left: 2%;
-        height: 50vh;
+        height: 100%;
         margin-right: 2%;
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
         grid-template-columns: 0.25vw 4vw 5vw 5vw 5vw;
@@ -688,6 +606,104 @@ select,
             ". ContabilidadLabel ContabilidadLabel Contabilidad Contabilidad"
             ". ReferenciaLabel ReferenciaLabel Referencia Referencia"
             ". . BotonConsultar BotonConsultar .";
+    }
+
+    .busqueda-seccion {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .busqueda-seccion select {
+        margin-right: 10px;
+        background-color: var(--color-amarillo);
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .cards-conjuntos {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+        padding: 10px;
+    }
+
+    .card-conjunto {
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 13px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+    }
+
+    /* modal */
+    .modal-crear-conjunto {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 35%;
+        text-align: center;
+        display: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 25%;
+        top: 10%;
+    }
+
+    /* modal actualizar */
+    .modal-actualizar-conjunto {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 35%;
+        text-align: center;
+        display: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 25%;
+        top: 10%;
+    }
+
+    .cards-secciones {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20vw, 1fr));
+        grid-gap: 20px;
+        padding: 10px;
+    }
+
+    .card-seccion {
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 13px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+    }
+
+    /* modal */
+    .modal-crear-seccion {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 35%;
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 25%;
+        top: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+        flex-direction: column;
     }
 
     .modal,
@@ -746,6 +762,109 @@ select,
             ". . BotonConsultar BotonConsultar .";
     }
 
+    .busqueda-seccion {
+        margin-top: 20px;
+        display: flex;
+        margin-left: 8%;
+        width: 80%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards-conjuntos {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50%, 50%));
+        padding: 10px;
+        margin-left: 5%;
+    }
+
+    .busqueda-seccion select {
+        margin-right: 10px;
+        background-color: var(--color-amarillo);
+        text-align: center;
+        font-size: 1.1em;
+        width: 120%;
+    }
+
+    .card-conjunto {
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 13px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+    }
+
+    .cards-secciones {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50%, 40%));
+        grid-gap: 10px;
+        padding: 10px;
+        margin-left: 5%;
+    }
+
+    .card-seccion {
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 13px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+    }
+
+    /* modal */
+    .modal-crear-conjunto {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 7.5%;
+        text-align: center;
+        display: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 75%;
+        top: 10%;
+    }
+
+    /* modal actualizar */
+    .modal-actualizar-conjunto {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 7.5%;
+        text-align: center;
+        display: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 75%;
+        top: 10%;
+    }
+
+    /* modal */
+    .modal-crear-seccion {
+        background-color: var(--color-principal);
+        box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 998;
+        position: absolute;
+        left: 7.5%;
+        text-align: center;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        width: 75%;
+        top: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+        flex-direction: column;
+    }
+
     .itemsConjunto {
         left: 10%;
         width: 80vw;
@@ -781,4 +900,9 @@ select,
         top: 10%;
     }
 
+    .modalConfirmacion .botonAmarillo,
+    .modalConfirmacion .botonRojo {
+        width: 15%;
+        height: 4vh;
+    }
 }

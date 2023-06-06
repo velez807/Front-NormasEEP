@@ -366,7 +366,6 @@ function cargarSecciones(selectId) {
         if (xhr.status === 200) {
             var secciones = JSON.parse(xhr.responseText);
             var selectElement = document.getElementById(selectId);
-
             secciones.forEach(function (seccion) {
                 var option = document.createElement('option');
                 option.value = seccion.ID_Seccion;
@@ -437,7 +436,7 @@ function obtenerConjuntosPorSeccion() {
         .then(response => response.json())
         .then(resultados => {
             const cardsContainer = document.getElementById('cards-secciones');
-
+            cardsContainer.innerHTML = '';
             for (const seccionId in resultados) {
                 const conjuntos = resultados[seccionId];
 
