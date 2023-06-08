@@ -1,3 +1,8 @@
+/*HTML y css
+    Kevin Alejandro Betancur
+    Andrés Felipe Martínez
+    Robinson Espinosa Corra
+*/
 :root {
     --color-principal: #3A3B40;
     --color-amarillo: #EAC956;
@@ -18,8 +23,6 @@ img {
     aspect-ratio: 1/1;
     border-radius: 10px;
 }
-
-/* Navbar */
 nav {
     background-color: #24252A;
     height: 50px;
@@ -68,8 +71,6 @@ a.active:before {
 .inactive {
     color: #8F8F8F;
 }
-
-/* Estilos para los botones amarillos */
 .botonAmarillo {
     text-align: center;
     border-radius: 5px;
@@ -334,8 +335,6 @@ th {
 }
 
 
-/* Secciones */
-
 #secciones .botones .botonAmarillo {
     border-radius: 0;
 }
@@ -408,8 +407,6 @@ th {
 }
 
 
-
-/* Conjuntos */
 #selectItems {
     background-color: var(--color-principal);
     text-align: center;
@@ -574,8 +571,6 @@ select,
 
 
 
-/* Media Queries, A.K.A el machetazo pa que eso sea responsive */
-/* PC */
 @media (min-width: 768px) {
     .cardsItems {
         margin-top: 2%;
@@ -638,7 +633,6 @@ select,
         width: 250px;
     }
 
-    /* modal */
     .modal-crear-conjunto {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -654,7 +648,6 @@ select,
         top: 10%;
     }
 
-    /* modal actualizar */
     .modal-actualizar-conjunto {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -687,7 +680,6 @@ select,
         width: 250px;
     }
 
-    /* modal */
     .modal-crear-seccion {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -814,7 +806,6 @@ select,
         width: 65%;
     }
 
-    /* modal */
     .modal-crear-conjunto {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -830,7 +821,6 @@ select,
         top: 10%;
     }
 
-    /* modal actualizar */
     .modal-actualizar-conjunto {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -846,7 +836,6 @@ select,
         top: 10%;
     }
 
-    /* modal */
     .modal-crear-seccion {
         background-color: var(--color-principal);
         box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);

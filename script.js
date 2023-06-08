@@ -1,3 +1,4 @@
+//Autores: Juan Sebastián Vélez hernández, Julio Alejandro Peñaloza Giraldo
 const botonEliminarItem = document.getElementById('EliminarItemBtn');
 botonEliminarItem.disabled = true;
 const botonActualizarItem = document.getElementById('ActualizarItemBtn');
